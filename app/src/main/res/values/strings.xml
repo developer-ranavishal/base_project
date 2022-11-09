@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">demo_app</string>
+    <string name="server_error">Failed to connect with server. please try again</string>
+    <string name="updating_app">We\'are updating our application please wait for some time.</string>
+    <string name="updating_error">Error while updating the app. please try again after some time.</string>
+    <string name="common_server_error">We\'re facing some server issue that time please try again.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="close">Close</string>
+    <string name="Login">Login</string>
+
+    <string name="email_hint">Email<font color='#FF0000'>*</font></string>
+    <string name="password_hint">Password<font color='#FF0000'>*</font></string>
+    <string name="cm_password_hint">Confirm Password<font color='#FF0000'>*</font></string>
+    <string name="fn_hint">First Name<font color='#FF0000'>*</font></string>
+    <string name="ln_hint">Last Name<font color='#FF0000'>*</font></string>
+    <string name="userName_hint">UserName<font color='#FF0000'>*</font></string>
+    <string name="phone_hint">phone<font color='#FF0000'>*</font></string>
+    <string name="age_hint">Age<font color='#FF0000'>*</font></string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone</string>
+    <string name="signup">SignUp</string>
+
+
+
+    <string name="or_continue_with_mobile">Or continue with <![CDATA[<b>Mobile</b>]]></string>
+    <string name="or_continue_with_email">or continue with <![CDATA[<b>Email</b>]]></string>
+    <string name="home_screen">Welcome to Home Screen</string>
+    <string name="dont_have_an_account_register">Don\'t have an account? <a href="Register"><b>Register</b></a></string>
+    <string name="already_have_an_account_login">Already have an account? <a href="Login"><b>Login</b></a></string>
+    <string name="dont_have_account">Don\'t have an account? <a href="login"><b>Sign up</b></a></string>
+    <string name="hint_test">Legal name <font color='#FF0000'>*</font></string>
+    <string name="please_sign_in_to_continue">Please sign in to continue</string>
+    <string name="please_sign_up_to_continue">Please sign up to continue</string>
+    <string name="register">Register</string>
+
+
+</resources>

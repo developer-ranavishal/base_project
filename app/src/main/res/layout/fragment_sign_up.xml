@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.text.Html" />
+
+
+        <variable
+            name="controller"
+            type="com.example.demo_app.ui.screen.auth.SignUpFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.example.demo_app.ui.screen.auth.VMAuth" />
+
+
+
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:scrollbars="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.screen.auth.LoginScreen">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_top"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.04" />
+
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="1.0" />
+
+        <TextView
+            android:id="@+id/title1_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/gl_top"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            android:text="@string/signup"
+            style="@style/tvMedium"
+            android:textSize="24sp"/>
+
+
+        <TextView
+            android:id="@+id/title2_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title1_login"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            android:text="@string/please_sign_up_to_continue"
+            android:layout_marginTop="3dp"
+            style="@style/tvRegular"/>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_firstName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            android:hint="@string/fn_hint"
+            app:boxStrokeColor="@color/gray_dark"
+            app:helperText="@{viewModel.tilFnHelper}"
+            app:helperTextTextColor="@color/design_default_color_error"
+            app:endIconMode="clear_text"
+            app:layout_constraintTop_toBottomOf="@+id/title2_login"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:startIconDrawable="@drawable/ic_profile">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiEt_firstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.firstName}"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_lastName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            android:hint="@string/ln_hint"
+            app:helperText="@{viewModel.tilLnHelper}"
+            app:boxStrokeColor="@color/gray_dark"
+            app:helperTextTextColor="@color/design_default_color_error"
+            app:endIconMode="clear_text"
+            app:layout_constraintTop_toBottomOf="@+id/til_firstName"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:startIconDrawable="@drawable/ic_profile">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiEt_lastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.lastName}"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_userName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            android:hint="@string/userName_hint"
+            app:helperText="@{viewModel.tilUserNameHelper}"
+            app:boxStrokeColor="@color/gray_dark"
+            app:helperTextTextColor="@color/design_default_color_error"
+            app:endIconMode="clear_text"
+            app:layout_constraintTop_toBottomOf="@+id/til_lastName"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:startIconDrawable="@drawable/ic_profile">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiEt_userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.username}"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <FrameLayout
+            android:id="@+id/container_signup_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/til_userName"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:hint="@string/email_hint"
+                app:helperText="@{viewModel.tilEmailHelper}"
+                app:boxStrokeColor="@color/gray_dark"
+                android:visibility="@{viewModel.isAuthTypeEmail()? View.VISIBLE : View.GONE}"
+                app:helperTextTextColor="@color/design_default_color_error"
+                app:endIconMode="clear_text"
+                app:layout_constraintTop_toBottomOf="@+id/title2_login"
+                app:startIconDrawable="@drawable/ic_email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiEt_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.email}"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_phone"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:hint="@string/phone_hint"
+                app:helperText="@{viewModel.tilPhoneHelper}"
+                app:counterMaxLength="10"
+                app:counterEnabled="true"
+                android:visibility="@{viewModel.isAuthTypeEmail() ? View.GONE : View.VISIBLE}"
+                app:helperTextTextColor="@color/design_default_color_error"
+                app:endIconMode="clear_text"
+                app:prefixText="+91"
+                app:layout_constraintTop_toBottomOf="@+id/title2_login"
+                app:startIconDrawable="@drawable/ic_phone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiEt_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="10"
+                    android:text="@={viewModel.phone}"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </FrameLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:counterMaxLength="12"
+            app:counterEnabled="true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:helperText="@{viewModel.tilPasswordHelper}"
+            android:hint="@string/password_hint"
+            app:boxStrokeColor="@color/black"
+            app:helperTextTextColor="@color/design_default_color_error"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@+id/container_signup_phone"
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/ic_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiEt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="12"
+                android:lines="1"
+                android:text="@={viewModel.password}"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_confirmPassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:counterMaxLength="12"
+            app:counterEnabled="true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            android:hint="@string/cm_password_hint"
+            app:helperText="@{viewModel.tilCmPasswordHelper}"
+            app:boxStrokeColor="@color/black"
+            app:helperTextTextColor="@color/design_default_color_error"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/til_password"
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/ic_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiEt_confirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="12"
+                android:lines="1"
+                android:text="@={viewModel.confirmPassword}"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register"
+            app:cornerRadius="10dp"
+            app:rippleColor="@color/red"
+            android:onClick="@{() -> controller.register()}"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/light_blue"
+            app:strokeColor="@color/gray_dark"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toStartOf="@+id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/til_confirmPassword" />
+
+        <TextView
+            android:id="@+id/tv_choose_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(v) -> controller.onChangeType()}"
+            android:text="@{viewModel.isAuthTypeEmail()?Html.fromHtml(@string/or_continue_with_mobile):Html.fromHtml(@string/or_continue_with_email)}"
+            app:layout_constraintTop_toBottomOf="@id/btn_register"
+            app:layout_constraintEnd_toStartOf="@+id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            tools:text="@string/or_continue_with_mobile"/>
+
+
+
+
+        <TextView
+            android:id="@+id/tvLogin"
+            style="@style/tvRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/already_have_an_account_login"
+            android:paddingBottom="16dp"
+            android:paddingTop="4dp"
+            android:textSize="13sp"
+            android:textColorLink="@color/gray_dark"
+            app:layout_constraintTop_toBottomOf="@id/tv_choose_login"
+            app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

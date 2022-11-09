@@ -163,11 +163,36 @@
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_age"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            android:hint="@string/age_hint"
+            app:helperText="@{viewModel.tilAgeHelper}"
+            app:boxStrokeColor="@color/gray_dark"
+            app:helperTextTextColor="@color/design_default_color_error"
+            app:endIconMode="clear_text"
+            app:layout_constraintTop_toBottomOf="@+id/til_userName"
+            app:layout_constraintEnd_toStartOf="@id/gl_end"
+            app:layout_constraintStart_toEndOf="@id/gl_start"
+            app:startIconDrawable="@drawable/ic_profile">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiEt_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.age}"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <FrameLayout
             android:id="@+id/container_signup_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/til_userName"
+            app:layout_constraintTop_toBottomOf="@id/til_age"
             app:layout_constraintEnd_toStartOf="@id/gl_end"
             app:layout_constraintStart_toEndOf="@id/gl_start">
 

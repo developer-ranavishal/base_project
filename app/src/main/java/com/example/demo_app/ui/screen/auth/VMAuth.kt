@@ -13,10 +13,11 @@ class VMAuth : ViewModel() {
     val password = MutableLiveData("")
     val confirmPassword = MutableLiveData("")
 
+
     val firstName = MutableLiveData("")
     val lastName = MutableLiveData("")
     val username = MutableLiveData("")
-    val age = MutableLiveData(0)
+    val age = MutableLiveData("")
 
     val tilEmailHelper = MutableLiveData("")
     val tilPhoneHelper = MutableLiveData("")
@@ -149,7 +150,10 @@ class VMAuth : ViewModel() {
     }
 
 
+    fun calculateAge(){
 
+
+    }
 
     /** complete validation function!*/
     fun signUpValidation() : Boolean{
@@ -224,6 +228,7 @@ class VMAuth : ViewModel() {
         confirmPassword.value = ""
         firstName.value = ""
         lastName.value = ""
+        age.value = ""
 
 
         tilEmailHelper.value = null
@@ -233,6 +238,7 @@ class VMAuth : ViewModel() {
         tilLnHelper.value = null
         tilUserNameHelper.value = null
         tilCmPasswordHelper.value = null
+        tilAgeHelper.value = null
     }
 
 

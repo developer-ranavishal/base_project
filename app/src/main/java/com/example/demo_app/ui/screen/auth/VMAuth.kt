@@ -1,18 +1,28 @@
 package com.example.demo_app.ui.screen.auth
 
+import android.app.DatePickerDialog
+import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import app.beYou.utils.extensions.snack
+import com.example.demo_app.Person
+import com.example.demo_app.logD
+import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.*
+import javax.inject.Inject
 
 
-class VMAuth : ViewModel() {
+@HiltViewModel
+class VMAuth @Inject constructor() :  ViewModel() {
+
     val isAuthTypeEmail = MutableLiveData(true)
 
     val email  = MutableLiveData("")
     val phone = MutableLiveData("")
     val password = MutableLiveData("")
     val confirmPassword = MutableLiveData("")
-
 
     val firstName = MutableLiveData("")
     val lastName = MutableLiveData("")
@@ -28,14 +38,10 @@ class VMAuth : ViewModel() {
     val tilAgeHelper = MutableLiveData("")
     val tilCmPasswordHelper = MutableLiveData("")
 
-
+    /** firebase Auth **/
+    val firebaseAuth = FirebaseAuth.getInstance()
 
     var otp = MutableLiveData("")
-
-
-
-
-
 
     /** password validation **/
     private fun nameValidation(name : String) : String?{
@@ -150,10 +156,7 @@ class VMAuth : ViewModel() {
     }
 
 
-    fun calculateAge(){
 
-
-    }
 
     /** complete validation function!*/
     fun signUpValidation() : Boolean{
@@ -199,9 +202,6 @@ class VMAuth : ViewModel() {
 
 
 
-
-
-
     /** reset login form after successful validation **/
     fun resetLoginForm() {
 
@@ -242,5 +242,24 @@ class VMAuth : ViewModel() {
     }
 
 
-}
+
+
+    fun openDatePicker(context: Context){
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        val dpd = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            // Display Selected date in textbox
+            age.value = "$dayOfMonth/$monthOfYear/$year"
+        }, year, month, day)
+
+        dpd.show()
+    }
+
+
+
+
+    }
 

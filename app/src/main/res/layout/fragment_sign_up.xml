@@ -171,6 +171,7 @@
             app:errorEnabled="true"
             android:hint="@string/age_hint"
             app:helperText="@{viewModel.tilAgeHelper}"
+            android:onClick="@{() -> viewModel.openDatePicker(controller.context)}"
             app:boxStrokeColor="@color/gray_dark"
             app:helperTextTextColor="@color/design_default_color_error"
             app:endIconMode="clear_text"
@@ -184,8 +185,11 @@
                 android:id="@+id/tiEt_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.openDatePicker(controller.context)}"
                 android:text="@={viewModel.age}"
-                android:inputType="textEmailAddress" />
+                android:focusable="false"
+                android:cursorVisible="false" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <FrameLayout
@@ -241,6 +245,7 @@
                     android:id="@+id/tiEt_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:maxLength="10"
                     android:text="@={viewModel.phone}"
                     android:inputType="number" />

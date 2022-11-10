@@ -1,8 +1,11 @@
 package com.example.demo_app.ui.screen.auth
 
 
+import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import app.beYou.utils.extensions.handleUrlClicks
@@ -10,7 +13,13 @@ import app.beYou.utils.extensions.snack
 import com.example.demo_app.R
 import com.example.demo_app.core.BaseFragment
 import com.example.demo_app.databinding.FragmentSignUpBinding
+import com.example.demo_app.logD
 import com.example.demo_app.utils.extensions.isFragmentInBackStack
+import com.example.demo_app.utils.extensions.showToast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.*
+import javax.xml.datatype.DatatypeConstants.MONTHS
 
 class SignUpFragment : BaseFragment<VMAuth,FragmentSignUpBinding>() {
     lateinit var navController: NavController
@@ -32,25 +41,25 @@ class SignUpFragment : BaseFragment<VMAuth,FragmentSignUpBinding>() {
     /** hit login api here */
     fun register(){
         if (vm.signUpValidation()){
-            binding.root.snack("Register User Success!"){}
-            vm.resetSignUpForm()
+        //    binding.root.snack("Register User Success!"){}
+            lifecycleScope.launch{
+                createUser(vm.email.value!!,vm.password.value!!)
+
+            }
+
         }
         else{
             binding.root.snack("InValid Form"){}
+
         }
 
     }
-
-
 
 
     /** method call on choose email or mobile for login **/
     fun onChangeType(){
         vm.isAuthTypeEmail.value =  !vm.isAuthTypeEmail.value!!
     }
-
-
-
 
 
 
@@ -72,6 +81,36 @@ class SignUpFragment : BaseFragment<VMAuth,FragmentSignUpBinding>() {
         super.onDestroy()
         vm.resetSignUpForm()
     }
+
+
+
+    private fun  createUser(email : String, password : String) {
+           loader.show()
+        vm.firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{ task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    loader.hide()
+                    logD("register", "Registration success")
+                    val user = vm.firebaseAuth.currentUser
+                   logD("register", "current user $user")
+                    binding.root.snack("Registration success!"){}
+                    vm.resetSignUpForm()
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    loader.hide()
+                    logD("register", "Registration failed")
+                    logD("register","${task.exception}")
+                    binding.root.snack("Registration failed"){  }
+                }
+            }
+
+
+
+
+    }
+
+
 
 }
 

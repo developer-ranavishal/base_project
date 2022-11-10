@@ -8,9 +8,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.demo_app.R
 import com.example.demo_app.core.BaseActivity
 import com.example.demo_app.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
-
+@AndroidEntryPoint
 class AuthActivity  : BaseActivity<VMAuth, ActivityMainBinding>() {
 
     private lateinit var navController: NavController

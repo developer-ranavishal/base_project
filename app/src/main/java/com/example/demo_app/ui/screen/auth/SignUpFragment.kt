@@ -18,8 +18,7 @@ import java.util.*
 
 class SignUpFragment : BaseFragment<VMAuth,FragmentSignUpBinding>() {
     lateinit var navController: NavController
-    override fun getViewBinding(): FragmentSignUpBinding =
-        FragmentSignUpBinding.inflate(layoutInflater)
+    override fun getViewBinding(): FragmentSignUpBinding = FragmentSignUpBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -3,6 +3,8 @@ package com.example.demo_app.ui.screen.auth
 
 import android.os.Bundle
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -54,6 +56,7 @@ class LoginScreen  : BaseFragment<VMAuth, FragmentLoginScreenBinding>() {
     /** method call on choose email or mobile for login **/
     fun onChangeType() {
         vm.isAuthTypeEmail.value = !vm.isAuthTypeEmail.value!!
+
     }
 
 
@@ -106,7 +109,6 @@ class LoginScreen  : BaseFragment<VMAuth, FragmentLoginScreenBinding>() {
         super.onDestroy()
         vm.resetLoginForm()
     }
-
 
 
 }

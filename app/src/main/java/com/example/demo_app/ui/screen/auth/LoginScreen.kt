@@ -11,10 +11,13 @@ import app.beYou.utils.extensions.snack
 import com.example.demo_app.R
 import com.example.demo_app.core.BaseFragment
 import com.example.demo_app.databinding.FragmentLoginScreenBinding
+import com.example.demo_app.logD
 import com.example.demo_app.utils.extensions.isFragmentInBackStack
 import com.example.demo_app.utils.extensions.showToast
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -39,22 +42,12 @@ class LoginScreen  : BaseFragment<VMAuth, FragmentLoginScreenBinding>() {
 
     /** hit login api here */
     fun login() {
-        loader.show()
         if (vm.loginValidation()) {
-            lifecycleScope.launch {
-                 delay(4000)
-                loader.hide()
-                binding.root.snack("Login Success!") {}
-                vm.resetLoginForm()
-            }
-        } else {
-            lifecycleScope.launch {
-                delay(1000)
-                loader.hide()
-                binding.root.snack("InValid Form") {}
-
+            lifecycleScope.launch(Dispatchers.Main){
+               loginUser(vm.email.value!!, vm.password.value!!)
             }
         }
+        else binding.root.snack("InValid Form") {}
     }
 
 
@@ -78,17 +71,48 @@ class LoginScreen  : BaseFragment<VMAuth, FragmentLoginScreenBinding>() {
     }
 
 
-    override fun onStop() {
-        super.onStop()
+
+
+
+    /** function to login Account*/
+    private suspend fun loginUser(email: String, password: String) {
+        loader.show()
+        withContext(Dispatchers.IO){
+            vm.firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        loader.hide()
+                        logD("login", "Login success of $email")
+                        val user = vm.firebaseAuth.currentUser
+                        logD("login", "current user $user")
+                        binding.root.snack("Login success!") {}
+                        vm.resetLoginForm()
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        loader.hide()
+                        logD("login", "Login failed of $email")
+                        logD("login", "${task.exception}")
+                        binding.root.snack(task.exception?.localizedMessage ?: "Login Failed") { }
+                    }
+                }
+
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         vm.resetLoginForm()
     }
 
 
 
-
-
-
 }
+
+
+
 
 
 

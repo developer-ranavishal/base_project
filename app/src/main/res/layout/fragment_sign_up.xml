@@ -321,7 +321,7 @@
             android:text="@string/register"
             app:cornerRadius="10dp"
             app:rippleColor="@color/red"
-            android:onClick="@{() -> controller.register()}"
+            android:onClick="@{() -> controller.createAccount()}"
             android:textColor="@color/black"
             android:backgroundTint="@color/light_blue"
             app:strokeColor="@color/gray_dark"

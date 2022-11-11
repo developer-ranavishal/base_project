@@ -1,15 +1,22 @@
 package com.example.demo_app.ui.screen.auth
 
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import app.beYou.utils.extensions.snack
 import com.example.demo_app.Person
 import com.example.demo_app.logD
+import com.example.demo_app.utils.views.loader.Loader
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
 
@@ -38,10 +45,14 @@ class VMAuth @Inject constructor() :  ViewModel() {
     val tilAgeHelper = MutableLiveData("")
     val tilCmPasswordHelper = MutableLiveData("")
 
+
+
     /** firebase Auth **/
-    val firebaseAuth = FirebaseAuth.getInstance()
+   val firebaseAuth = FirebaseAuth.getInstance()
 
     var otp = MutableLiveData("")
+
+
 
     /** password validation **/
     private fun nameValidation(name : String) : String?{
@@ -91,7 +102,7 @@ class VMAuth @Inject constructor() :  ViewModel() {
                 !confirmPassword.matches(".*[A-Z].*".toRegex()) -> return "Must Contain 1 Upper-case Character"
                 !confirmPassword.matches(".*[a-z].*".toRegex()) -> return "Must Contain 1 Lower-case Character"
                 !confirmPassword.matches(".*[@#\$%^&+=].*".toRegex()) -> return "Must Contain 1 Special Character (@#\$%^&+=)"
-                confirmPassword!=password -> return "password mismatch"
+                confirmPassword!=password -> return "Password and Confirm Password are not matched"
             }
         }
         else return "Confirm Password field must not empty"
@@ -129,8 +140,12 @@ class VMAuth @Inject constructor() :  ViewModel() {
     }
 
 
+    private fun ageValidation() : String?{
+      if (age.value!!.isEmpty()) return   "Select Age"
+        return null
+    }
 
-    /** complete validation function!*/
+    /** complete login validation function!*/
     fun loginValidation() : Boolean{
         if (isAuthTypeEmail.value!!) {
 
@@ -158,7 +173,7 @@ class VMAuth @Inject constructor() :  ViewModel() {
 
 
 
-    /** complete validation function!*/
+    /** complete signUp validation function!*/
     fun signUpValidation() : Boolean{
         if (isAuthTypeEmail.value!!) {
 
@@ -168,6 +183,7 @@ class VMAuth @Inject constructor() :  ViewModel() {
             val isValidLn = nameValidation(lastName.value!!)
             val isValidUserName = userNameValidation(username.value!!)
             val isValidConfirmPassword = confirmPasswordValidation(confirmPassword.value!!,password.value!!)
+            val isValidAge = ageValidation()
 
             tilEmailHelper.value = isValidEmail
             tilPasswordHelper.value = isValidPassword
@@ -175,8 +191,10 @@ class VMAuth @Inject constructor() :  ViewModel() {
             tilLnHelper.value = isValidLn
             tilUserNameHelper.value = isValidUserName
             tilCmPasswordHelper.value = isValidConfirmPassword
+            tilAgeHelper.value = isValidAge
 
-            return isValidPassword == null && isValidConfirmPassword==null && isValidEmail == null  && isValidFn==null && isValidLn == null && isValidUserName==null
+
+            return isValidPassword == null && isValidConfirmPassword==null && isValidEmail == null  && isValidFn==null && isValidLn == null && isValidUserName==null && isValidAge==null
 
         } else {
             val isValidPassword = passwordValidation(password.value!!.trim())
@@ -185,6 +203,7 @@ class VMAuth @Inject constructor() :  ViewModel() {
             val isValidLn = nameValidation(lastName.value!!)
             val isValidUserName = userNameValidation(username.value!!)
             val isValidConfirmPassword = confirmPasswordValidation(confirmPassword.value!!,password.value!!)
+            val isValidAge = ageValidation()
 
             tilPasswordHelper.value = isValidPassword
             tilPhoneHelper.value = isValidPhone
@@ -192,8 +211,9 @@ class VMAuth @Inject constructor() :  ViewModel() {
             tilLnHelper.value = isValidLn
             tilUserNameHelper.value = isValidUserName
             tilCmPasswordHelper.value = isValidConfirmPassword
+            tilAgeHelper.value = isValidAge
 
-            return isValidPassword == null && isValidConfirmPassword==null && isValidPhone == null && isValidFn==null && isValidLn == null && isValidUserName==null
+            return isValidPassword == null && isValidConfirmPassword==null && isValidPhone == null && isValidFn==null && isValidLn == null && isValidUserName==null && isValidAge==null
             }
 
 
@@ -257,6 +277,13 @@ class VMAuth @Inject constructor() :  ViewModel() {
 
         dpd.show()
     }
+
+
+
+
+
+
+
 
 
 

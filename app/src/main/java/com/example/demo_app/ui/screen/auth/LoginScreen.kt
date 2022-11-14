@@ -24,6 +24,7 @@ import java.util.*
 import kotlin.concurrent.schedule
 
 
+
 class LoginScreen  : BaseFragment<VMAuth, FragmentLoginScreenBinding>() {
     lateinit var navController: NavController
     override fun getViewBinding(): FragmentLoginScreenBinding =
@@ -39,15 +40,17 @@ class LoginScreen  : BaseFragment<VMAuth, FragmentLoginScreenBinding>() {
         }
 
         handleHyperLink()
+
     }
 
 
     /** hit login api here */
     fun login() {
         if (vm.loginValidation()) {
-            lifecycleScope.launch(Dispatchers.Main){
-               loginUser(vm.email.value!!, vm.password.value!!)
+            lifecycleScope.launch(Dispatchers.Main) {
+                loginUser(vm.email.value!!, vm.password.value!!)
             }
+
         }
         else binding.root.snack("InValid Form") {}
     }
@@ -74,9 +77,6 @@ class LoginScreen  : BaseFragment<VMAuth, FragmentLoginScreenBinding>() {
     }
 
 
-
-
-
     /** function to login Account*/
     private suspend fun loginUser(email: String, password: String) {
         loader.show()
@@ -87,18 +87,23 @@ class LoginScreen  : BaseFragment<VMAuth, FragmentLoginScreenBinding>() {
                         // Sign in success, update UI with the signed-in user's information
                         loader.hide()
                         logD("login", "Login success of $email")
-                        val user = vm.firebaseAuth.currentUser
+                        val user = vm.firebaseAuth.currentUser?.uid
+                        vm.prefManger().put("f-auth-token",user as String)
                         logD("login", "current user $user")
                         binding.root.snack("Login success!") {}
                         vm.resetLoginForm()
-
                     } else {
                         // If sign in fails, display a message to the user.
                         loader.hide()
                         logD("login", "Login failed of $email")
                         logD("login", "${task.exception}")
                         binding.root.snack(task.exception?.localizedMessage ?: "Login Failed") { }
+
                     }
+
+
+
+
                 }
 
         }

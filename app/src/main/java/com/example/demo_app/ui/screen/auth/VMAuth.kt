@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import app.beYou.utils.extensions.snack
 import com.example.demo_app.Person
 import com.example.demo_app.logD
+import com.example.demo_app.utils.preferences.PrefManager
 import com.example.demo_app.utils.views.loader.Loader
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +23,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class VMAuth @Inject constructor() :  ViewModel() {
+class VMAuth @Inject constructor( private val prefManager: PrefManager) :  ViewModel() {
 
     val isAuthTypeEmail = MutableLiveData(true)
 
@@ -46,6 +47,8 @@ class VMAuth @Inject constructor() :  ViewModel() {
     val tilCmPasswordHelper = MutableLiveData("")
 
 
+
+    fun prefManger() = prefManager
 
     /** firebase Auth **/
    val firebaseAuth = FirebaseAuth.getInstance()

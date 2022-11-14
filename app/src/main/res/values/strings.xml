@@ -34,6 +34,7 @@
     <string name="please_sign_in_to_continue">Please sign in to continue</string>
     <string name="please_sign_up_to_continue">Please sign up to continue</string>
     <string name="register">Register</string>
+    <string name="welcome_to_demo_app">Welcome to Demo App \n here you can learn something interesting</string>
 
 
 </resources>

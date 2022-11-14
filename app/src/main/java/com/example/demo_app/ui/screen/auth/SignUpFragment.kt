@@ -13,6 +13,7 @@ import com.example.demo_app.core.BaseFragment
 import com.example.demo_app.databinding.FragmentSignUpBinding
 import com.example.demo_app.logD
 import com.example.demo_app.utils.extensions.isFragmentInBackStack
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -32,13 +33,14 @@ class SignUpFragment : BaseFragment<VMAuth,FragmentSignUpBinding>() {
         }
         handleHyperLink()
 
+
     }
 
     /** register the new user here */
     fun createAccount() {
         if (vm.signUpValidation()) {
            lifecycleScope.launch(Dispatchers.Main){
-                createUser(vm.email.value!!, vm.password.value!!)
+                createUser(vm.email.value!!, vm.password.value!!,vm.phone.value!!)
             }
         }
         else binding.root.snack("InValid Form") {}
@@ -68,28 +70,30 @@ class SignUpFragment : BaseFragment<VMAuth,FragmentSignUpBinding>() {
 
 
     /** function to create Account*/
-    private suspend fun createUser(email: String, password: String) {
+    private suspend fun createUser(email: String, password: String,phone : String) {
         loader.show()
         withContext(Dispatchers.IO){
-            vm.firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        loader.hide()
-                        logD("register", "Registration success of $email")
-                        val user = vm.firebaseAuth.currentUser
-                        logD("register", "current user $user")
-                        binding.root.snack("Registration success!") {}
-                        vm.resetSignUpForm()
+            if (vm.isAuthTypeEmail.value!!){
+                vm.firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            loader.hide()
+                            logD("register", "Registration success of $email")
+                            vm.prefManger().put("current_user_token",vm.firebaseAuth.uid as String)
+                            logD("register", "current user ${vm.firebaseAuth.uid}")
+                            binding.root.snack("Registration success!") {}
+                            vm.resetSignUpForm()
 
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        loader.hide()
-                        logD("register", "Registration failed of $email")
-                        logD("register", "${task.exception}")
-                        binding.root.snack(task.exception?.localizedMessage ?: "Signup Failed") { }
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            loader.hide()
+                            logD("register", "Registration failed of $email")
+                            logD("register", "${task.exception}")
+                            binding.root.snack(task.exception?.localizedMessage ?: "Signup Failed") { }
+                        }
                     }
-                }
+            }
 
         }
 

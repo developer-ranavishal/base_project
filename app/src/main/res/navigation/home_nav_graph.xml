@@ -1,26 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_nav_graph.xml"
-    app:startDestination="@id/loginScreen">
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/homeScreen">
 
     <fragment
-        android:id="@+id/loginScreen"
-        android:name="com.example.demo_app.ui.screen.auth.LoginScreen"
-        android:label="fragment_login_screen"
-        tools:layout="@layout/fragment_login_screen" >
-        <action
-            android:id="@+id/action_loginScreen_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.example.demo_app.ui.screen.auth.SignUpFragment"
-        android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" >
-        <action
-            android:id="@+id/action_signUpFragment_to_loginScreen"
-            app:destination="@id/loginScreen" />
-    </fragment>
+        android:id="@+id/homeScreen"
+        android:name="com.example.demo_app.ui.screen.home.HomeScreen"
+        android:label="HomeScreen" />
 </navigation>

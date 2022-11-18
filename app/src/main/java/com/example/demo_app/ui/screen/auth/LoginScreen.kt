@@ -14,7 +14,9 @@ import com.example.demo_app.R
 import com.example.demo_app.core.BaseFragment
 import com.example.demo_app.databinding.FragmentLoginScreenBinding
 import com.example.demo_app.logD
+import com.example.demo_app.ui.screen.home.HomeActivity
 import com.example.demo_app.utils.extensions.isFragmentInBackStack
+import com.example.demo_app.utils.extensions.openActivity
 import com.example.demo_app.utils.extensions.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -83,15 +85,10 @@ class LoginScreen  : BaseFragment<VMAuth, FragmentLoginScreenBinding>() {
         withContext(Dispatchers.IO){
             vm.firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
+                    if (task.isSuccessful) {            //  Sign in success, update UI with the signed-in user's information
                         loader.hide()
-                        logD("login", "Login success of $email")
-                        val user = vm.firebaseAuth.currentUser?.uid
-                        vm.prefManger().put("f-auth-token",user as String)
-                        logD("login", "current user $user")
-                        binding.root.snack("Login success!") {}
-                        vm.resetLoginForm()
+                        goToHome(vm.firebaseAuth.currentUser?.uid)
+
                     } else {
                         // If sign in fails, display a message to the user.
                         loader.hide()
@@ -99,16 +96,26 @@ class LoginScreen  : BaseFragment<VMAuth, FragmentLoginScreenBinding>() {
                         logD("login", "${task.exception}")
                         binding.root.snack(task.exception?.localizedMessage ?: "Login Failed") { }
 
+
+
                     }
-
-
-
 
                 }
 
         }
 
     }
+
+
+    /** manage session here and after goto home **/
+    private fun goToHome(token : String?){
+        vm.prefManger().put("f-auth-token",token as String)
+        binding.root.snack("Login success!") {}
+        requireActivity().openActivity<HomeActivity>()
+        vm.resetLoginForm()
+        requireActivity().finish()
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

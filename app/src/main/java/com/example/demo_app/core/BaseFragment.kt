@@ -79,7 +79,4 @@ abstract class BaseFragment<VM : ViewModel, VB : ViewDataBinding> : Fragment() {
 
 
 
-
-
-
 }

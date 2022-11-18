@@ -15,3 +15,5 @@ fun Fragment.isFragmentInBackStack(destinationId: Int) =
     } catch (e: Exception) {
         false
     }
+
+

@@ -14,6 +14,8 @@ import com.example.demo_app.logD
 import com.example.demo_app.utils.preferences.PrefManager
 import com.example.demo_app.utils.views.loader.Loader
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,7 +55,10 @@ class VMAuth @Inject constructor( private val prefManager: PrefManager) :  ViewM
     /** firebase Auth **/
    val firebaseAuth = FirebaseAuth.getInstance()
 
+    /** fireStore database **/
+    val db = Firebase.firestore
     var otp = MutableLiveData("")
+
 
 
 

@@ -35,6 +35,13 @@
     <string name="please_sign_up_to_continue">Please sign up to continue</string>
     <string name="register">Register</string>
     <string name="welcome_to_demo_app">Welcome to Demo App \n here you can learn something interesting</string>
+    <string name="logout_title">do you want to logout?</string>
+    <string name="cancel">cancel</string>
+    <string name="decline">decline</string>
+    <string name="accept">accept</string>
+    <string name="news_title">news_title</string>
+    <string name="news_country">news country</string>
+    <string name="news_description">news description</string>
 
 
 </resources>
